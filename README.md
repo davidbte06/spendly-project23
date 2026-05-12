@@ -2,6 +2,7 @@
 
 > "The code is like a joke. If it needs comment, it's no good." — **Russ Olsen**
 
+> "Truth can only be found in one place: the code." ― **Robert C. Martin**
 ---
 
 ## 📚 Project Overview
