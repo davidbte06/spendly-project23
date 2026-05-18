@@ -10,7 +10,11 @@ const prismaClientSingleton = () => {
     }
 
     // Create a new PostgreSQL connection pool and Prisma adapter
-    const pool = new Pool({ connectionString });
+    const pool = new Pool({
+        connectionString,
+        // Vercel Postgres requires strict SSL encryption in production
+        ssl: process.env.NODE_ENV === "production" ? true : undefined
+    });
     const adapter = new PrismaPg(pool);
 
     return new PrismaClient({ adapter });
