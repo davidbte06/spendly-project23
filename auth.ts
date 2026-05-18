@@ -40,3 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 });
+
+// Temporal - borra esto después
+console.log("AUTH_SECRET exists:", !!process.env.AUTH_SECRET);
+console.log("AUTH_SECRET length:", process.env.AUTH_SECRET?.length);
