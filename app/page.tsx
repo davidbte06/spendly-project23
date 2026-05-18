@@ -1,8 +1,6 @@
-export default function Home() {
-  return (
-    <main className="p-8">
-      <h1 className="text-3xl font-bold">Spendly</h1>
-      <p className="mt-2 text-gray-600">Welcome to Spendly</p>
-    </main>
-  );
+import { redirect } from "next/navigation";
+
+export default function HomePage() {
+  // Redirect to login page by default
+  redirect("/login");
 }

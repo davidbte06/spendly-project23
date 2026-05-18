@@ -38,7 +38,7 @@ export default async function RootLayout({
                 <form
                   action={async () => {
                     "use server";
-                    await signOut();
+                    await signOut({ redirectTo: "/login" });
                   }}
                 >
                   <button type="submit" className="text-sm font-medium text-red-600 hover:underline">
