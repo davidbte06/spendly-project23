@@ -31,50 +31,76 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
-            <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-                <h1 className="mb-6 text-center text-2xl font-bold text-gray-900">
-                    Log In to Spendly
-                </h1>
+        <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+            <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm border border-gray-200">
+                
+                {/* Logo / Title */}
+                <div className="mb-8 text-center">
+                    <h1 className="text-3xl font-extrabold tracking-tight text-emerald-600">
+                        Spendly
+                    </h1>
 
+                    <p className="mt-2 text-sm text-gray-500">
+                        Welcome back! Log in to continue.
+                    </p>
+                </div>
+
+                {/* Error Message */}
                 {error && (
-                    <p className="mb-4 rounded bg-red-100 p-2 text-center text-sm text-red-600">
+                    <p className="mb-4 rounded-lg bg-red-100 px-4 py-3 text-center text-sm text-red-600">
                         {error}
                     </p>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    
+                    {/* Email */}
                     <div>
-                        <label className="mb-1 block text-sm font-medium text-gray-700">Email</label>
+                        <label className="mb-2 block text-sm font-medium text-gray-700">
+                            Email
+                        </label>
+
                         <input
                             type="email"
                             name="email"
                             required
-                            className="w-full rounded-md border border-gray-300 p-2 text-gray-900 focus:border-blue-500"
+                            placeholder="you@example.com"
+                            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
                         />
                     </div>
 
+                    {/* Password */}
                     <div>
-                        <label className="mb-1 block text-sm font-medium text-gray-700">Password</label>
+                        <label className="mb-2 block text-sm font-medium text-gray-700">
+                            Password
+                        </label>
+
                         <input
                             type="password"
                             name="password"
                             required
-                            className="w-full rounded-md border border-gray-300 p-2 text-gray-900 focus:border-blue-500"
+                            placeholder="Enter your password"
+                            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
                         />
                     </div>
 
+                    {/* Login Button */}
                     <button
                         type="submit"
-                        className="w-full rounded-md bg-blue-600 py-2 px-4 text-white hover:bg-blue-700"
+                        className="w-full rounded-xl bg-emerald-500 py-3 font-medium text-white transition hover:bg-emerald-600"
                     >
                         Log In
                     </button>
                 </form>
 
-                <p className="mt-4 text-center text-sm text-gray-600">
+                {/* Register Link */}
+                <p className="mt-6 text-center text-sm text-gray-600">
                     Don&apos;t have an account?{" "}
-                    <Link href="/register" className="text-blue-600 hover:underline">
+                    <Link
+                        href="/register"
+                        className="font-medium text-emerald-600 hover:text-emerald-700"
+                    >
                         Register
                     </Link>
                 </p>
