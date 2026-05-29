@@ -1,20 +1,20 @@
 "use client";
- 
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Wallet, ArrowLeftRight, Tag, LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
- 
+
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dashboard/transactions", label: "Transactions", icon: ArrowLeftRight },
   { href: "/dashboard/categories", label: "Categories", icon: Tag },
   { href: "/dashboard/budget", label: "Budget", icon: Wallet },
 ];
- 
+
 export default function Sidebar() {
   const pathname = usePathname();
- 
+
   return (
     <aside className="flex min-h-screen w-64 flex-col bg-slate-900 text-white">
       {/* Logo */}
@@ -24,7 +24,7 @@ export default function Sidebar() {
         </h1>
         <p className="mt-0.5 text-xs text-slate-500">Finance Tracker</p>
       </div>
- 
+
       {/* Navigation */}
       <nav className="flex-1 space-y-1 p-4">
         {navLinks.map(({ href, label, icon: Icon }) => {
@@ -33,11 +33,10 @@ export default function Sidebar() {
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
-                isActive
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${isActive
                   ? "bg-emerald-500/20 text-emerald-400"
                   : "text-slate-300 hover:bg-slate-800 hover:text-white"
-              }`}
+                }`}
             >
               <Icon
                 size={18}
@@ -51,7 +50,7 @@ export default function Sidebar() {
           );
         })}
       </nav>
- 
+
       {/* Footer */}
       <div className="border-t border-slate-800 p-4 space-y-3">
         <button

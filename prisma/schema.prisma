@@ -21,8 +21,9 @@ model User {
 model Category {
   id           String        @id @default(cuid())
   name         String
-  type         String        // "INCOME" or "EXPENSE"
-  userId       String?       // Optional: if null, it's a global default category
+  type         String
+  icon         String?
+  userId       String?
   user         User?         @relation(fields: [userId], references: [id])
   transactions Transaction[]
   createdAt    DateTime      @default(now())
@@ -32,7 +33,7 @@ model Category {
 model Transaction {
   id          String   @id @default(cuid())
   amount      Float
-  type        String   // "INCOME" or "EXPENSE"
+  type        String
   description String
   date        DateTime
   userId      String
