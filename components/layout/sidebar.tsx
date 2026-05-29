@@ -1,49 +1,68 @@
+"use client";
+
 import Link from "next/link";
-import{
-    LayoutDashboard,
-    Wallet,
-    ArrowLeftRight
-} from "lucide-react";
+import { usePathname } from "next/navigation";
+import { LayoutDashboard, Wallet, ArrowLeftRight, Tag, LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
+
+const navLinks = [
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/dashboard/transactions", label: "Transactions", icon: ArrowLeftRight },
+  { href: "/dashboard/categories", label: "Categories", icon: Tag },
+  { href: "/dashboard/budget", label: "Budget", icon: Wallet },
+];
 
 export default function Sidebar() {
-    return (
-        <aside className="flex min-h-screen w-64 flex-col bg-slate-900 text-white">
-            <div className="border-b border-slate-800 px-6 py-6">
-                <h1 className="text-2x1 font-extrabold tracking-tight text-emerald-400">
-                    Spendly
-                </h1>
-            </div>
-            <nav className="flex-1 space-y-2 p-4">
-                <Link
-                href="/dashboard"
-                className="flex items-center gap-3 rounded-xl bg-slate-800 px-4 py-3 text-sm font-medium text-white transition hover:bg-slate-700"
-                >
-                <LayoutDashboard size={20} />
-                Dashboard
-                </Link>
+  const pathname = usePathname();
 
-                <Link
-                href="/dashboard/budget"
-                className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
-                >
-                <Wallet size={20} />
-                Budget
-                </Link>
+  return (
+    <aside className="flex min-h-screen w-64 flex-col bg-slate-900 text-white">
+      {/* Logo */}
+      <div className="border-b border-slate-800 px-6 py-6">
+        <h1 className="text-2xl font-extrabold tracking-tight text-emerald-400">
+          Spendly
+        </h1>
+        <p className="mt-0.5 text-xs text-slate-500">Finance Tracker</p>
+      </div>
 
-                <Link
-                href="/dashboard/transactions"
-                className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
-                >
-                <ArrowLeftRight size={20} />
-                Transactions
-                </Link>
-            </nav>
-            <div className="border-t border-slate-800 p-4">
-                <p className="text-xs text-slate-500">
-                Spendly v1.0
-                </p>
-            </div>
-        </aside>
-    )
-    
+      {/* Navigation */}
+      <nav className="flex-1 space-y-1 p-4">
+        {navLinks.map(({ href, label, icon: Icon }) => {
+          const isActive = pathname === href;
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${isActive
+                  ? "bg-emerald-500/20 text-emerald-400"
+                  : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                }`}
+            >
+              <Icon
+                size={18}
+                className={isActive ? "text-emerald-400" : "text-slate-400"}
+              />
+              {label}
+              {isActive && (
+                <span className="ml-auto h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Footer */}
+      <div className="border-t border-slate-800 p-4 space-y-3">
+        <button
+          id="logout-btn"
+          onClick={() => signOut({ callbackUrl: "/login" })}
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-400 transition hover:bg-red-500/10 hover:text-red-400"
+        >
+          <LogOut size={18} />
+          Log Out
+        </button>
+        <p className="px-1 text-xs text-slate-600">Spendly v1.0</p>
+      </div>
+    </aside>
+  );
 }
