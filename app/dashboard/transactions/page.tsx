@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { Plus, ArrowLeftRight } from "lucide-react";
 import TransactionTable from "@/components/dashboard/TransactionTable";
 import TransactionForm from "@/components/dashboard/TransactionForm";
+import ExportButton from "@/components/dashboard/ExportButton";
 import { getTransactions } from "@/lib/actions/transactions";
 import { getCategories } from "@/lib/actions/categories";
 
@@ -64,14 +65,17 @@ export default function TransactionsPage() {
           </div>
         </div>
 
-        <button
-          id="new-transaction-btn"
-          onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-600 active:scale-95"
-        >
-          <Plus size={16} />
-          New Transaction
-        </button>
+        <div className="flex items-center gap-3">
+          <ExportButton />
+          <button
+            id="new-transaction-btn"
+            onClick={() => setShowForm(true)}
+            className="flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-600 active:scale-95"
+          >
+            <Plus size={16} />
+            New Transaction
+          </button>
+        </div>
       </div>
 
       {/* Add transaction modal */}

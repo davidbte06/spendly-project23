@@ -2,14 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Wallet, ArrowLeftRight, Tag, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Wallet,
+  ArrowLeftRight,
+  Tag,
+  BarChart3,
+  LogOut,
+} from "lucide-react";
 import { signOut } from "next-auth/react";
 
 const navLinks = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/dashboard",              label: "Dashboard",    icon: LayoutDashboard },
   { href: "/dashboard/transactions", label: "Transactions", icon: ArrowLeftRight },
-  { href: "/dashboard/categories", label: "Categories", icon: Tag },
-  { href: "/dashboard/budget", label: "Budget", icon: Wallet },
+  { href: "/dashboard/categories",   label: "Categories",   icon: Tag },
+  { href: "/dashboard/budget",       label: "Budget",       icon: Wallet },
+  { href: "/dashboard/summary",      label: "Summary",      icon: BarChart3 },
 ];
 
 export default function Sidebar() {
@@ -33,10 +41,11 @@ export default function Sidebar() {
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${isActive
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
+                isActive
                   ? "bg-emerald-500/20 text-emerald-400"
                   : "text-slate-300 hover:bg-slate-800 hover:text-white"
-                }`}
+              }`}
             >
               <Icon
                 size={18}
