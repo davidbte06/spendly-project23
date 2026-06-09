@@ -70,9 +70,9 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
             <Tag size={18} />
           </div>
           <div>
@@ -88,7 +88,7 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
         <button
           id="add-category-btn"
           onClick={() => setShowForm((v) => !v)}
-          className="flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-600"
+          className="flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-600"
         >
           <Plus size={15} />
           New Category
