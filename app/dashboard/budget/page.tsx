@@ -1,26 +1,26 @@
 "use client";
- 
+
 import { useEffect, useState, useTransition } from "react";
 import { ChevronLeft, ChevronRight, Wallet } from "lucide-react";
 import BudgetForm from "@/components/dashboard/BudgetForm";
 import BudgetProgress from "@/components/dashboard/BudgetProgress";
 import { getBudget } from "@/lib/actions/budget";
 import { getMonthlySummary } from "@/lib/actions/summary";
- 
+
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
 ];
- 
+
 export default function BudgetPage() {
   const now = new Date();
   const [month, setMonth] = useState(now.getMonth() + 1);
   const [year, setYear] = useState(now.getFullYear());
- 
+
   const [budgetAmount, setBudgetAmount] = useState<number | undefined>(undefined);
   const [spentAmount, setSpentAmount] = useState(0);
   const [isPending, startTransition] = useTransition();
- 
+
   const loadData = () => {
     startTransition(async () => {
       const [budget, summary] = await Promise.all([
@@ -31,19 +31,19 @@ export default function BudgetPage() {
       setSpentAmount(summary.totalExpenses);
     });
   };
- 
+
   useEffect(() => { loadData(); }, [month, year]);
- 
+
   const prevMonth = () => {
     if (month === 1) { setMonth(12); setYear((y) => y - 1); }
     else setMonth((m) => m - 1);
   };
- 
+
   const nextMonth = () => {
     if (month === 12) { setMonth(1); setYear((y) => y + 1); }
     else setMonth((m) => m + 1);
   };
- 
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -61,7 +61,7 @@ export default function BudgetPage() {
             </p>
           </div>
         </div>
- 
+
         {/* Month navigation */}
         <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm">
           <button
@@ -81,7 +81,7 @@ export default function BudgetPage() {
           </button>
         </div>
       </div>
- 
+
       {/* Loading */}
       {isPending ? (
         <div className="flex items-center justify-center py-20 text-gray-400">
@@ -109,7 +109,7 @@ export default function BudgetPage() {
               </p>
             </div>
           )}
- 
+
           {/* Form */}
           <BudgetForm
             month={month}
@@ -122,4 +122,3 @@ export default function BudgetPage() {
     </div>
   );
 }
- 
