@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -9,6 +10,8 @@ import {
   Tag,
   BarChart3,
   LogOut,
+  Menu,
+  X,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -20,13 +23,17 @@ const navLinks = [
   { href: "/dashboard/summary",      label: "Summary",      icon: BarChart3 },
 ];
 
-export default function Sidebar() {
-  const pathname = usePathname();
-
+function NavContent({
+  pathname,
+  onNavigate,
+}: {
+  pathname: string;
+  onNavigate?: () => void;
+}) {
   return (
-    <aside className="flex min-h-screen w-64 flex-col bg-slate-900 text-white">
+    <>
       {/* Logo */}
-      <div className="border-b border-slate-800 px-6 py-6">
+      <div className="border-b border-slate-800 px-6 py-5">
         <h1 className="text-2xl font-extrabold tracking-tight text-emerald-400">
           Spendly
         </h1>
@@ -41,6 +48,7 @@ export default function Sidebar() {
             <Link
               key={href}
               href={href}
+              onClick={onNavigate}
               className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
                 isActive
                   ? "bg-emerald-500/20 text-emerald-400"
@@ -72,6 +80,67 @@ export default function Sidebar() {
         </button>
         <p className="px-1 text-xs text-slate-600">Spendly v1.0</p>
       </div>
-    </aside>
+    </>
+  );
+}
+
+export default function Sidebar() {
+  const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <>
+      {/* ── Mobile top bar ── */}
+      <div className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-slate-800 bg-slate-900 px-4 lg:hidden">
+        <span className="text-lg font-extrabold tracking-tight text-emerald-400">
+          Spendly
+        </span>
+        <button
+          id="sidebar-toggle"
+          onClick={() => setMobileOpen(true)}
+          className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-white"
+          aria-label="Open menu"
+        >
+          <Menu size={22} />
+        </button>
+      </div>
+
+      {/* ── Mobile drawer overlay ── */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-50 lg:hidden"
+          aria-modal="true"
+          role="dialog"
+        >
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setMobileOpen(false)}
+          />
+
+          {/* Drawer panel */}
+          <div className="absolute inset-y-0 left-0 flex w-72 flex-col bg-slate-900 text-white shadow-2xl">
+            {/* Close button */}
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="absolute right-4 top-4 rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-white"
+              aria-label="Close menu"
+            >
+              <X size={20} />
+            </button>
+
+            <NavContent
+              pathname={pathname}
+              onNavigate={() => setMobileOpen(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ── Desktop sidebar (always visible on lg+) ── */}
+      <aside className="hidden lg:flex lg:min-h-screen lg:w-64 lg:flex-col bg-slate-900 text-white">
+        <NavContent pathname={pathname} />
+      </aside>
+    </>
   );
 }
