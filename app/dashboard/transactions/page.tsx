@@ -50,13 +50,13 @@ export default function TransactionsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
             <ArrowLeftRight size={20} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
               Transactions
             </h1>
             <p className="text-sm text-gray-400">
@@ -64,13 +64,13 @@ export default function TransactionsPage() {
             </p>
           </div>
         </div>
-
-        <div className="flex items-center gap-3">
+ 
+        <div className="flex items-center gap-2 sm:gap-3">
           <ExportButton />
           <button
             id="new-transaction-btn"
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-600 active:scale-95"
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-600 active:scale-95 sm:flex-none sm:px-5"
           >
             <Plus size={16} />
             New Transaction

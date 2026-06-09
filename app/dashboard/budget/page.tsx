@@ -47,13 +47,13 @@ export default function BudgetPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
             <Wallet size={20} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
               Budget
             </h1>
             <p className="text-sm text-gray-400">
@@ -63,14 +63,14 @@ export default function BudgetPage() {
         </div>
 
         {/* Month navigation */}
-        <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm">
+        <div className="flex items-center gap-2 self-start rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm sm:self-auto">
           <button
             onClick={prevMonth}
             className="rounded-lg p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-700"
           >
             <ChevronLeft size={18} />
           </button>
-          <span className="min-w-[140px] text-center text-sm font-semibold text-gray-800">
+          <span className="min-w-[130px] text-center text-sm font-semibold text-gray-800">
             {MONTHS[month - 1]} {year}
           </span>
           <button
