@@ -8,8 +8,8 @@ import ExportButton from "@/components/dashboard/ExportButton";
 import { getMonthlySummary, getCategoryBreakdown } from "@/lib/actions/summary";
 
 const MONTHS = [
-  "January","February","March","April","May","June",
-  "July","August","September","October","November","December",
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
 ];
 
 type SummaryData = { totalIncome: number; totalExpenses: number; balance: number; month: number; year: number };
@@ -18,9 +18,9 @@ type BreakdownRow = { categoryId: string; categoryName: string; categoryIcon: st
 export default function SummaryPage() {
   const now = new Date();
   const [month, setMonth] = useState(now.getMonth() + 1);
-  const [year,  setYear]  = useState(now.getFullYear());
+  const [year, setYear] = useState(now.getFullYear());
 
-  const [summary,   setSummary]   = useState<SummaryData | null>(null);
+  const [summary, setSummary] = useState<SummaryData | null>(null);
   const [breakdown, setBreakdown] = useState<BreakdownRow[]>([]);
   const [isPending, startTransition] = useTransition();
 

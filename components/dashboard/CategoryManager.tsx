@@ -1,9 +1,9 @@
 "use client";
- 
+
 import { useState, useTransition } from "react";
 import { Plus, Trash2, Tag } from "lucide-react";
 import { createCategory, deleteCategory } from "@/lib/actions/categories";
- 
+
 type Category = {
   id: string;
   name: string;
@@ -11,17 +11,17 @@ type Category = {
   icon: string | null;
   userId: string | null;
 };
- 
+
 const EMOJI_OPTIONS = [
   "📦", "🏷️", "🎯", "⚡", "🌟", "💡", "🔧", "🎨",
   "🍕", "☕", "🐾", "📱", "🎮", "✈️", "🏋️", "🌿",
 ];
- 
+
 type Props = {
   categories: Category[];
   onRefresh: () => void;
 };
- 
+
 export default function CategoryManager({ categories, onRefresh }: Props) {
   const [showForm, setShowForm] = useState(false);
   const [type, setType] = useState<"expense" | "income">("expense");
@@ -29,16 +29,16 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
   const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
   const [deletingId, setDeletingId] = useState<string | null>(null);
- 
+
   const globalCategories = categories.filter((c) => c.userId === null);
   const userCategories = categories.filter((c) => c.userId !== null);
- 
+
   const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     const formData = new FormData(e.currentTarget);
     formData.set("icon", selectedIcon);
- 
+
     startTransition(async () => {
       try {
         await createCategory(formData);
@@ -51,9 +51,10 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
       }
     });
   };
- 
+
   const handleDelete = (id: string) => {
     setDeletingId(id);
+    setError("");
     startTransition(async () => {
       try {
         await deleteCategory(id);
@@ -65,7 +66,7 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
       }
     });
   };
- 
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -93,7 +94,7 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
           New Category
         </button>
       </div>
- 
+
       {/* Create Form */}
       {showForm && (
         <div className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-5">
@@ -111,28 +112,26 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
               <button
                 type="button"
                 onClick={() => setType("expense")}
-                className={`rounded-lg py-2 text-sm font-medium transition ${
-                  type === "expense"
+                className={`rounded-lg py-2 text-sm font-medium transition ${type === "expense"
                     ? "bg-white text-red-600 shadow-sm"
                     : "text-gray-500"
-                }`}
+                  }`}
               >
                 💸 Expense
               </button>
               <button
                 type="button"
                 onClick={() => setType("income")}
-                className={`rounded-lg py-2 text-sm font-medium transition ${
-                  type === "income"
+                className={`rounded-lg py-2 text-sm font-medium transition ${type === "income"
                     ? "bg-white text-emerald-600 shadow-sm"
                     : "text-gray-500"
-                }`}
+                  }`}
               >
                 💰 Income
               </button>
             </div>
             <input type="hidden" name="type" value={type} />
- 
+
             {/* Name */}
             <input
               type="text"
@@ -141,7 +140,7 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
               placeholder="Category name"
               className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
             />
- 
+
             {/* Icon picker */}
             <div>
               <p className="mb-2 text-xs font-medium text-gray-500">
@@ -153,11 +152,10 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
                     key={emoji}
                     type="button"
                     onClick={() => setSelectedIcon(emoji)}
-                    className={`h-9 w-9 rounded-xl text-lg transition ${
-                      selectedIcon === emoji
+                    className={`h-9 w-9 rounded-xl text-lg transition ${selectedIcon === emoji
                         ? "bg-emerald-100 ring-2 ring-emerald-400"
                         : "bg-gray-100 hover:bg-gray-200"
-                    }`}
+                      }`}
                   >
                     {emoji}
                   </button>
@@ -167,7 +165,7 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
                 Selected icon: {selectedIcon}
               </p>
             </div>
- 
+
             <div className="flex gap-3">
               <button
                 type="button"
@@ -187,7 +185,7 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
           </form>
         </div>
       )}
- 
+
       {/* Default categories */}
       <div>
         <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
@@ -197,11 +195,10 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
           {globalCategories.map((cat) => (
             <div
               key={cat.id}
-              className={`flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium ${
-                cat.type === "income"
+              className={`flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium ${cat.type === "income"
                   ? "bg-emerald-50 text-emerald-700"
                   : "bg-gray-100 text-gray-600"
-              }`}
+                }`}
             >
               <span>{cat.icon}</span>
               <span>{cat.name}</span>
@@ -209,7 +206,7 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
           ))}
         </div>
       </div>
- 
+
       {/* User categories */}
       <div>
         <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
@@ -239,11 +236,10 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
                       {cat.name}
                     </p>
                     <p
-                      className={`text-xs font-medium ${
-                        cat.type === "income"
+                      className={`text-xs font-medium ${cat.type === "income"
                           ? "text-emerald-500"
                           : "text-red-400"
-                      }`}
+                        }`}
                     >
                       {cat.type === "income" ? "Income" : "Expense"}
                     </p>
@@ -254,7 +250,7 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
                   onClick={() => handleDelete(cat.id)}
                   disabled={deletingId === cat.id}
                   title="Delete category"
-                  className="rounded-lg p-2 text-gray-300 opacity-0 transition hover:bg-red-50 hover:text-red-500 group-hover:opacity-100 disabled:opacity-50"
+                  className="rounded-lg p-2 text-gray-300 transition hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
                 >
                   <Trash2 size={14} />
                 </button>
@@ -266,5 +262,4 @@ export default function CategoryManager({ categories, onRefresh }: Props) {
     </div>
   );
 }
- 
- 
+
