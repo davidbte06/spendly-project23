@@ -52,11 +52,11 @@ export default function SummaryPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-600">
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-600">
             <BarChart3 size={20} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
               Financial Summary
             </h1>
             <p className="text-sm text-gray-400">
@@ -64,11 +64,11 @@ export default function SummaryPage() {
             </p>
           </div>
         </div>
-
-        <div className="flex items-center gap-3">
+ 
+        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
           {/* Export */}
           <ExportButton />
-
+ 
           {/* Month navigation */}
           <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm">
             <button
@@ -77,7 +77,7 @@ export default function SummaryPage() {
             >
               <ChevronLeft size={18} />
             </button>
-            <span className="min-w-[140px] text-center text-sm font-semibold text-gray-800">
+            <span className="min-w-[120px] text-center text-sm font-semibold text-gray-800">
               {MONTHS[month - 1]} {year}
             </span>
             <button
@@ -89,7 +89,7 @@ export default function SummaryPage() {
           </div>
         </div>
       </div>
-
+ 
       {/* Content */}
       {isPending && !summary ? (
         <div className="flex items-center justify-center py-20 text-gray-400">
@@ -108,7 +108,7 @@ export default function SummaryPage() {
               year={year}
             />
           )}
-
+ 
           {/* Category breakdown */}
           <div>
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
